@@ -5,13 +5,13 @@
 	"homepage": "https://github.com/scottjehl/Respond",
 	"homepageShortened": "http://j.mp/respondjs",
 	"author": {
-		"name": "Scott Jehl",
-		"email": "scott@filamentgroup.com",
-		"url": "http://filamentgroup.com"
+		"name": "Alex Reardon",
+		"email": "alex.reardon@macquarie.com",
+		"url": "https://twitter.com/alexandereardon"
 	},
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/scottjehl/Respond.git"
+		"url": "https://github.com/alexreardon/Respond.git"
 	},
 	"bugs": {
 		"url": "https://github.com/scottjehl/Respond/issues"

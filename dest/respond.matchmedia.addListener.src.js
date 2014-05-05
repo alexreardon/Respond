@@ -1,5 +1,5 @@
 /*! Respond.js v1.4.2: min/max-width media query polyfill
- * Copyright 2014 Scott Jehl
+ * Copyright 2014 Alex Reardon
  * Licensed under MIT
  * http://j.mp/respondjs */
 
@@ -77,6 +77,10 @@
 
 (function(w) {
   "use strict";
+  var mqStaticDomain = /^http:\/\/static\.macquarie\.com/;
+  function mqRemoveStaticDomainFromUrl(url) {
+    return url.replace(mqStaticDomain, "");
+  }
   var respond = {};
   w.respond = respond;
   respond.update = function() {};
@@ -95,6 +99,7 @@
     if (!req) {
       return;
     }
+    url = mqRemoveStaticDomainFromUrl(url);
     req.open("GET", url, true);
     req.onreadystatechange = function() {
       if (req.readyState !== 4 || req.status !== 200 && req.status !== 304) {
@@ -254,6 +259,7 @@
     for (var i = 0; i < links.length; i++) {
       var sheet = links[i], href = sheet.href, media = sheet.media, isCSS = sheet.rel && sheet.rel.toLowerCase() === "stylesheet";
       if (!!href && isCSS && !parsedSheets[href]) {
+        href = mqRemoveStaticDomainFromUrl(href);
         if (sheet.styleSheet && sheet.styleSheet.rawCssText) {
           translate(sheet.styleSheet.rawCssText, href, media);
           parsedSheets[href] = true;
