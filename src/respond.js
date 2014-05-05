@@ -3,6 +3,13 @@
 
 	"use strict";
 
+    // starts with 'http://static.macquarie.com'
+    // only replace the first occurrence
+    var mqStaticDomain = /^http:\/\/static\.macquarie\.com/;
+    function mqRemoveStaticDomainFromUrl(url) {
+        return url.replace(mqStaticDomain, "");
+    }
+
 	//exposed namespace
 	var respond = {};
 	w.respond = respond;
@@ -31,6 +38,10 @@
 			if (!req){
 				return;
 			}
+
+            // workaround for cross domain requests
+            url = mqRemoveStaticDomainFromUrl(url);
+
 			req.open( "GET", url, true );
 			req.onreadystatechange = function () {
 				if ( req.readyState !== 4 || req.status !== 200 && req.status !== 304 ){
@@ -309,6 +320,9 @@
 
 				//only links plz and prevent re-parsing
 				if( !!href && isCSS && !parsedSheets[ href ] ){
+                    // workaround for cross domain requests
+                    href = mqRemoveStaticDomainFromUrl(href);
+
 					// selectivizr exposes css through the rawCssText expando
 					if (sheet.styleSheet && sheet.styleSheet.rawCssText) {
 						translate( sheet.styleSheet.rawCssText, href, media );
